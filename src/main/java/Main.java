@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-
+        CommandRegistry command = new CommandRegistry();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.print("$ ");
@@ -14,13 +14,10 @@ public class Main {
                 continue;
             }
 
-            ShellInterpreter interpreter = new ShellInterpreter();
-
             String[] parts = input.split(" ", 2);
-            String command = parts[0];
+            String cmd = parts[0];
             String[] arguments = parts.length > 1 ? parts[1].trim().split(" ") : new String[0];
-
-            interpreter.interpretCommand(command, arguments);
+            command.executeCommand(cmd, arguments);
 
         }
 
