@@ -13,9 +13,5 @@ public class ExitCommand implements Command {
         return "exit";
     }
 
-    @Override
-    public boolean isShellBuiltin() {
-        return true;
-    }
 
 }

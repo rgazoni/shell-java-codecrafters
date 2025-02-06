@@ -8,10 +8,4 @@ public class EchoCommand implements Command {
     public String getName() {
         return "echo";
     }
-
-    @Override
-    public boolean isShellBuiltin() {
-        return true;
-    }
-
 }
