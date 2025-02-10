@@ -18,9 +18,17 @@ public class CommandRegistry {
        Command cmd = commands.get(command);
        if (cmd != null) {
            cmd.process(args);
-       } else {
-           System.out.println(command + ": command not found");
+           return;
        }
+
+       ExecutablesFiles executables = new ExecutablesFiles();
+       String executableCommands = executables.findCommandInPath(command);
+       if (executableCommands != null) {
+           executables.executeProgram(executableCommands, args);
+           return;
+       }
+
+       System.out.println(command + ": command not found");
     }
 
     public Map<String, Command> getCommands() {
