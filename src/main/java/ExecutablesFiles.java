@@ -53,6 +53,7 @@ public class ExecutablesFiles {
             // System.out.println("Process exited with code: " + exitCode);
         } catch (Exception e) {
             e.printStackTrace();
+            System.exit(1);
         }
     }
 }

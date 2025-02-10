@@ -24,7 +24,7 @@ public class CommandRegistry {
        ExecutablesFiles executables = new ExecutablesFiles();
        String executableCommands = executables.findCommandInPath(command);
        if (executableCommands != null) {
-           executables.executeProgram(executableCommands, args);
+           executables.executeProgram(command, args);
            return;
        }
 
