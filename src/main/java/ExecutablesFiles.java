@@ -33,7 +33,7 @@ public class ExecutablesFiles {
             ProcessBuilder processBuilder = new ProcessBuilder(args);
             // This line redirects the error stream (stderr) to the standard output stream (stdout).
             // This means that both normal output and error messages will be combined and can be read from the same input stream.
-            processBuilder.redirectErrorStream(true);
+            //processBuilder.redirectErrorStream(true);
             Process process = processBuilder.start();
 
             StringBuilder output = new StringBuilder();
@@ -43,10 +43,25 @@ public class ExecutablesFiles {
                 while ((line = reader.readLine()) != null) {
                     output.append(line).append("\r\n");
                 }
+                if (!output.isEmpty()) {
+                    output.deleteCharAt(output.length() - 1);
+                }
+            }
+
+            StringBuilder errors = new StringBuilder();
+            try (var reader = new java.io.BufferedReader(new java.io.InputStreamReader(process.getErrorStream()))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    errors.append(line).append("\r\n");
+                }
+                if (!errors.isEmpty()) {
+                    errors.deleteCharAt(errors.length() - 1);
+                }
             }
 
             CommandResult result = new CommandResult();
             result.setStdout(output.toString());
+            result.setStderr(errors.toString());
 
             return result;
 

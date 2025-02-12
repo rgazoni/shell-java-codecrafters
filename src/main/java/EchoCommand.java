@@ -2,7 +2,9 @@ public class EchoCommand implements Command {
     @Override
     public CommandResult process(String[] args) {
         CommandResult result = new CommandResult();
-        result.setStdout(String.join(" ", args));
+        String str = String.join(" ", args)
+                .replaceAll("'", "");
+        result.setStdout(str);
         return result;
     }
 

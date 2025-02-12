@@ -1,5 +1,3 @@
-import java.io.File;
-
 public class TypeCommand implements Command {
     private final CommandRegistry registry;
 

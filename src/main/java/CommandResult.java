@@ -1,21 +1,18 @@
-enum Status {
-    SUCCESS,
-    ERROR
-}
 
 public class CommandResult {
     private String stdout = "";
     private String stderr = "";
-    private Status type;
+    private boolean hasError = false;
+    private boolean hasOutput = false;
 
     void setStdout(String stdout) {
         this.stdout = stdout;
-        this.type = Status.SUCCESS;
+        this.hasOutput = true;
     }
 
     void setStderr(String stderr) {
         this.stderr = stderr;
-        this.type = Status.ERROR;
+        this.hasError = true;
     }
 
     String getStdout() {
@@ -25,7 +22,11 @@ public class CommandResult {
         return stderr;
     }
 
-    Status getType() {
-        return type;
+    boolean hasError() {
+        return hasError;
+    }
+
+    boolean hasOutput() {
+        return hasOutput;
     }
 }
