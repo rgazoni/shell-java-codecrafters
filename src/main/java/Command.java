@@ -1,6 +1,6 @@
 import java.util.ServiceLoader;
 
 interface Command {
-    void process(String[] args);
+    CommandResult process(String[] args);
     String getName();
 }

@@ -8,27 +8,29 @@ public class TypeCommand implements Command {
     }
 
     @Override
-    public void process(String[] args) {
+    public CommandResult process(String[] args) {
+        CommandResult result = new CommandResult();
 
         if (args.length == 0) {
-            System.out.println("Usage: type <command>");
-            return;
+            result.setStderr("Usage: type <command>");
+            return result;
         }
         String command = args[0];
 
         if (registry.getCommands().containsKey(command)) {
-            System.out.println(command + " is a shell builtin");
-            return;
+            result.setStdout(command + " is a shell builtin");
+            return result;
         }
 
         ExecutablesFiles executables = new ExecutablesFiles();
         String executableCommands = executables.findCommandInPath(command);
         if (executableCommands != null) {
-            System.out.println(command + " is " + executableCommands);
-            return;
+            result.setStdout(command + " is " + executableCommands);
+            return result;
         }
 
-        System.out.println(command + ": not found");
+        result.setStderr(command + ": not found");
+        return result;
     }
 
     @Override

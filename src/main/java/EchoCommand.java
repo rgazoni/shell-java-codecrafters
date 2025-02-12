@@ -1,7 +1,9 @@
 public class EchoCommand implements Command {
     @Override
-    public void process(String[] args) {
-        System.out.println(String.join(" ", args));
+    public CommandResult process(String[] args) {
+        CommandResult result = new CommandResult();
+        result.setStdout(String.join(" ", args));
+        return result;
     }
 
     @Override

@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ServiceLoader;
@@ -14,21 +15,21 @@ public class CommandRegistry {
         commands.put("type", new TypeCommand(this));
     }
 
-    public void executeCommand(String command, String[] args) {
-       Command cmd = commands.get(command);
+    public CommandResult executeCommand(String[] args) {
+       Command cmd = commands.get(args[0]);
        if (cmd != null) {
-           cmd.process(args);
-           return;
+           return cmd.process(Arrays.copyOfRange(args, 1, args.length));
        }
 
        ExecutablesFiles executables = new ExecutablesFiles();
-       String executableCommands = executables.findCommandInPath(command);
+       String executableCommands = executables.findCommandInPath(args[0]);
        if (executableCommands != null) {
-           executables.executeProgram(command, args);
-           return;
+           return executables.executeProgram(args);
        }
 
-       System.out.println(command + ": command not found");
+       CommandResult result = new CommandResult();
+       result.setStderr(args[0] + ": command not found");
+       return result;
     }
 
     public Map<String, Command> getCommands() {
